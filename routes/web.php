@@ -11,23 +11,40 @@
 |
 */
 
+// Ruta de bienvenida (la primer pagina)
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return "its working";
 });
 
-Route::get('/about', function () {
-    return "Soy about";
+// Route::get('/about', function () {
+//     return "Soy about";
+// });
+
+// Route::get('/post/{id}/{name}', function ($id,$name) {
+//     return "Soy post" . $id . " " . $name;
+// });
+
+
+// Route::get('admin/posts/example',array('as' => 'admin.home' , function () {
+//     $url = route('admin.home');
+
+//     return "this url is  " . $url;
+// }));
+
+//   Ruta asociada al controlador "PostsController" , funcion "index"
+Route::get('/post/{id}', 'PostsController@index' ,function ($id) {
+    return "Esta es la ruta post en web.php y id es : " . $id;
 });
 
-Route::get('/post/{id}/{name}', function ($id,$name) {
-    return "Soy post" . $id . " " . $name;
-});
+// Metodo especial llamado RESOURCE.
+// Nos crea todas las rutas con el controlador asociado y las funciones exitentes
+
+// Route::resource('Posts', 'PostsController');
 
 
-Route::get('admin/posts/example',array('as' => 'admin.home' , function () {
-    $url = route('admin.home');
+Route::get('/contact', 'PostsController@contact');
 
-    return "this url is  " . $url;
-}));
 
+Route::get('post/{id}/{name}/{password}', 'PostsController@show_post');
 
