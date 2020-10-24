@@ -48,3 +48,57 @@ Route::get('/contact', 'PostsController@contact');
 
 Route::get('post/{id}/{name}/{password}', 'PostsController@show_post');
 
+// ============================
+// INSERT in DB
+// ============================
+
+use Illuminate\Support\Facades\DB;
+
+Route::get('/insert', function(){
+    
+    DB::insert('insert into posts(title, body) values (?, ?)',
+     ['PHP with LARAVEL','Laravel is the best thing that has happend to PHP']);
+
+});
+
+
+// ============================
+// SELECT in DB
+// ============================
+
+Route::get('/read', function(){
+    
+    
+    $results = DB::select('select * from posts where id = ?', [1]);
+
+    // return var_dump($results);
+
+    foreach($results as $res){
+        return "res->title " . $res->title; 
+    }
+
+});
+
+// ============================
+// Actualizacion de datos
+// ============================
+
+Route::get('/update', function(){
+    
+    $updated = DB::update('update posts set title = "titulo actualizado" where id = ?', [1]);
+    
+    return $updated;
+
+});
+
+// ============================
+// Eliminando datos
+// ============================
+
+Route::get('/delete', function(){
+    
+    $deleted = DB::delete('delete from posts where id = ?', [1]);
+    
+    return "Deleted devolvio : " . $deleted;
+
+});
